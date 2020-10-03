@@ -375,9 +375,6 @@ h1, h2, h3, h4, h5, h6 {
 a, p {
   font-family: var(--bodyFontFamily); }
 
-p + p {
-  margin: 0.75em 0 0 0; }
-
 a {
   font-size: inherit; }
   a:visited, a:focus, a:active {
@@ -420,10 +417,27 @@ h6 {
     line-height: 135%; } }
 
 .mainContainer {
-  border: 16px solid goldenrod;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   justify-content: center;
   text-align: center;
   width: 100vw; }
+
+.categoryContainer {
+  border: 1px dashed red;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; }
+
+.itemContainer {
+  border: 1px dashed red;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  overflow: scroll; }
+
+.items {
+  border: 1px dashed red;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; }

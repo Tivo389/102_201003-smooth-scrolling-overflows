@@ -7,11 +7,32 @@
 @import '_font';
 
 .mainContainer {
-  border: 16px solid goldenrod;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   justify-content: center;
   text-align: center;
   width: 100vw;
+}
+
+.categoryContainer {
+  border: 1px dashed red;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.itemContainer {
+  border: 1px dashed red;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  overflow: scroll;
+}
+
+.items {
+  border: 1px dashed red;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
 }
