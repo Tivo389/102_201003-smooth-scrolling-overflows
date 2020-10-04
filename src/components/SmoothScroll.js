@@ -19,23 +19,31 @@ class SmoothScroll extends Component {
     return (
       <div className="smoothScrollContainer">
         <div className="categoryContainer">
-          <p className="category">Circle</p>
-          <p className="category">Hexagon</p>
-          <p className="category">Squares</p>
-          <p className="category">Triangle</p>
+          <div className="category">
+            <img src={circle} alt="circle" width="100%"/>
+          </div>
+          <div className="category">
+            <img src={hexagon} alt="hexagon" width="100%"/>
+          </div>
+          <div className="category">
+            <img src={square} alt="square" width="100%"/>
+          </div>
+          <div className="category">
+            <img src={triangle} alt="triangle" width="100%"/>
+          </div>
         </div>
         <div className="itemContainer">
           <div className="items">
-            { this.imageCount.map(key => <img src={circle} alt="circle" key={key}/>) }
+            { this.imageCount.map(key => <img src={circle} alt="circle" width="100%" key={key}/>) }
           </div>
           <div className="items">
-            { this.imageCount.map(key => <img src={hexagon} alt="circle" key={key}/>) }
+            { this.imageCount.map(key => <img src={hexagon} alt="hexagon" width="100%" key={key}/>) }
           </div>
           <div className="items">
-            { this.imageCount.map(key => <img src={square} alt="circle" key={key}/>) }
+            { this.imageCount.map(key => <img src={square} alt="square" width="100%" key={key}/>) }
           </div>
           <div className="items">
-            { this.imageCount.map(key => <img src={triangle} alt="circle" key={key}/>) }
+            { this.imageCount.map(key => <img src={triangle} alt="triangle" width="100%" key={key}/>) }
           </div>
         </div>
       </div>
