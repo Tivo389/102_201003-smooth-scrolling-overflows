@@ -22,9 +22,6 @@ h1, h2, h3, h4, h5, h6 {
 a, p {
   font-family: var(--bodyFontFamily);
 }
-p + p {
-  margin: 0.75em 0 0 0;
-}
 a {
   font-size: inherit;
   &:visited, &:focus, &:active {
