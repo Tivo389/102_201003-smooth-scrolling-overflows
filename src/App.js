@@ -4,7 +4,7 @@ import SmoothScroll from './components/SmoothScroll';
 
 function App() {
   return (
-    <main className="mainContainer">
+    <main className="mainContainer" style={{ minHeight: window.innerHeight }}>
       <SmoothScroll></SmoothScroll>
     </main>
   );
