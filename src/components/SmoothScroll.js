@@ -104,40 +104,34 @@ class SmoothScroll extends Component {
     this.getStartIndex();
   };
   itemContainerOnScroll = (e) => {
-    const detectionThreshold = e.currentTarget.scrollLeft + (window.innerWidth * 0.5);
-    this.itemStartX.forEach((startValue, i) => {
-      const endValue  = (this.itemStartX[i + 1]) ? this.itemStartX[i + 1] : this.icScrollWidth;
-      if (detectionThreshold >= startValue && detectionThreshold < endValue) {
-        this.categoryActivateClass(i);
-      }
-    });
+    // const detectionThreshold = e.currentTarget.scrollLeft + (window.innerWidth * 0.5);
+    // this.itemStartX.forEach((startValue, i) => {
+    //   const endValue  = (this.itemStartX[i + 1]) ? this.itemStartX[i + 1] : this.icScrollWidth;
+    //   if (detectionThreshold >= startValue && detectionThreshold < endValue) {
+    //     this.categoryActivateClass(i);
+    //   }
+    // });
   };
   itemContainerScrollToActive= () => {
-    const scrollLeftStart = this.itemsElement.scrollLeft;
     this.itemContainer.addEventListener('transitionend', this.itemContainerScrollToActiveEnd);
-    this.itemsElement.classList.add('willOverflow');
-    this.itemsElement.style = `transform: translateX(-${scrollLeftStart}px)`;
-    window.requestAnimationFrame(this.smoothScroll);
+    this.scrollLeftStart = this.itemContainer.scrollLeft;
+    this.itemsElement.classList.add('willAnimate');
+    if (this.startIndex < this.endIndex) {
+      this.transformValue = (this.itemStartX[this.endIndex] - this.scrollLeftStart) * -1;
+    } else {
+      this.transformValue = this.itemStartX[this.endIndex] - this.scrollLeftStart;
+    }
+    this.itemsElement.style = `transform: translateX(${this.transformValue}px)`;
   };
   itemContainerScrollToActiveEnd = () => {
     this.itemContainer.removeEventListener('transitionend', this.itemContainerScrollToActiveEnd);
     this.itemsElement.classList.remove('willAnimate');
-    this.itemsElement.classList.remove('willOverflow');
     this.itemsElement.style = null;
-    this.itemsElement.scrollLeft = Math.abs(this.transformValue);
+    this.itemContainer.scrollLeft = Math.abs(this.itemStartX[this.endIndex]);
   };
   categoryActivateClass = () => {
     this.categories.forEach(category => category.classList.remove('active'));
     this.categories[this.endIndex].classList.add('active');
-  };
-  smoothScroll = () => {
-    this.itemsElement.classList.add('willAnimate');
-    if (this.startIndex < this.endIndex) {
-      this.transformValue = this.itemStartX[this.endIndex] * -1;
-    } else {
-      this.transformValue = this.itemStartX[this.endIndex];
-    }
-    this.itemsElement.style = `transform: translateX(${this.transformValue}px)`;
   };
 }
 

@@ -13,23 +13,81 @@
   text-align: center;
   width: 100vw;
 }
+
 .willAnimate {
-  transition-duration: $durationLG !important;
-  // transition-duration: 2s !important;
+  // transition-duration: $durationLG !important;
+  transition-duration: 1s !important;
   pointer-events: none !important;
 }
-.willOverflow {
-  overflow-x: visible !important;
+
+
+
+.itemContainer {
+  overflow-x: scroll;
+  display: flex;
+  &::-webkit-scrollbar {
+    background: transparent;
+    display: none;
+    width: 0px;
+  }
+  & .items {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 16px;
+    flex: 1 0 auto;
+    position: relative;
+    & + .items::before {
+      background: #c3c3c3;
+      border-radius: 999px;
+      content: '';
+      display: block;
+      height: 8px;
+      left: -4px;
+      position: absolute;
+      top: calc(50% - 4px);
+      width: 8px;
+    }
+  }
+  & img {
+    width: 80px;
+    &[alt="hexagon"] {
+      width: 76px;
+    }
+    & + img {
+      margin-left: 0px;
+    }
+    & + img[alt="hexagon"],
+    & + img[alt="triangle"] {
+      margin-left: 8px;
+    }
+  }
+}
+@include w640 {
+  .itemContainer .items {
+    padding: 8px 24px 8px 8px;
+    & + .items {
+      padding: 8px 24px;
+    }
+  }
 }
 
-
-
-
-
-
-
-
-
+.itemsElement {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0 auto;
+  flex: 1 0 auto;
+  user-select: none;
+  will-change: transform;
+}
+@include w640 {
+  .itemsElement {
+    box-shadow: $boxShadowDefault;
+    max-width: 640px;
+    border-radius: 999px;
+  }
+}
 
 
 
@@ -70,90 +128,5 @@
 @include w640 {
   .categoryContainer {
     padding: 24px 16px;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-.itemContainer .items {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  padding: 16px;
-  flex: 1 0 auto;
-  position: relative;
-  & + .items::before {
-    background: #c3c3c3;
-    border-radius: 999px;
-    content: '';
-    display: block;
-    height: 8px;
-    left: -4px;
-    position: absolute;
-    top: calc(50% - 4px);
-    width: 8px;
-  }
-  & img {
-    width: 80px;
-    &[alt="hexagon"] {
-      width: 76px;
-    }
-    & + img {
-      margin-left: 0px;
-    }
-    & + img[alt="hexagon"],
-    & + img[alt="triangle"] {
-      margin-left: 8px;
-    }
-  }
-}
-@include w640 {
-  .itemContainer .items {
-    padding: 8px 24px 8px 8px;
-    & + .items {
-      padding: 8px 24px;
-    }
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-.itemsElement {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  margin: 0 auto;
-  overflow-x: scroll;
-  user-select: none;
-  will-change: transform;
-  &::-webkit-scrollbar {
-    background: transparent;
-    display: none;
-    width: 0px;
-  }
-}
-@include w640 {
-  .itemsElement {
-    box-shadow: $boxShadowDefault;
-    max-width: 640px;
-    border-radius: 999px;
   }
 }
