@@ -424,11 +424,63 @@ h6 {
   width: 100vw; }
 
 .willAnimate {
-  transition-duration: 0.6s !important;
+  transition-duration: 1s !important;
   pointer-events: none !important; }
 
-.willOverflow {
-  overflow-x: visible !important; }
+.itemContainer {
+  overflow-x: scroll;
+  display: flex; }
+  .itemContainer::-webkit-scrollbar {
+    background: transparent;
+    display: none;
+    width: 0px; }
+  .itemContainer .items {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 16px;
+    flex: 1 0 auto;
+    position: relative; }
+    .itemContainer .items + .items::before {
+      background: #c3c3c3;
+      border-radius: 999px;
+      content: '';
+      display: block;
+      height: 8px;
+      left: -4px;
+      position: absolute;
+      top: calc(50% - 4px);
+      width: 8px; }
+  .itemContainer img {
+    width: 80px; }
+    .itemContainer img[alt="hexagon"] {
+      width: 76px; }
+    .itemContainer img + img {
+      margin-left: 0px; }
+    .itemContainer img + img[alt="hexagon"],
+    .itemContainer img + img[alt="triangle"] {
+      margin-left: 8px; }
+
+@media only screen and (min-width: 640px) {
+  .itemContainer .items {
+    padding: 8px 24px 8px 8px; }
+    .itemContainer .items + .items {
+      padding: 8px 24px; } }
+
+.itemsElement {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0 auto;
+  flex: 1 0 auto;
+  user-select: none;
+  will-change: transform; }
+
+@media only screen and (min-width: 640px) {
+  .itemsElement {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.08);
+    max-width: 640px;
+    border-radius: 999px; } }
 
 .categoryContainer {
   display: flex;
@@ -463,55 +515,3 @@ h6 {
 @media only screen and (min-width: 640px) {
   .categoryContainer {
     padding: 24px 16px; } }
-
-.itemContainer .items {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  padding: 16px;
-  flex: 1 0 auto;
-  position: relative; }
-  .itemContainer .items + .items::before {
-    background: #c3c3c3;
-    border-radius: 999px;
-    content: '';
-    display: block;
-    height: 8px;
-    left: -4px;
-    position: absolute;
-    top: calc(50% - 4px);
-    width: 8px; }
-  .itemContainer .items img {
-    width: 80px; }
-    .itemContainer .items img[alt="hexagon"] {
-      width: 76px; }
-    .itemContainer .items img + img {
-      margin-left: 0px; }
-    .itemContainer .items img + img[alt="hexagon"],
-    .itemContainer .items img + img[alt="triangle"] {
-      margin-left: 8px; }
-
-@media only screen and (min-width: 640px) {
-  .itemContainer .items {
-    padding: 8px 24px 8px 8px; }
-    .itemContainer .items + .items {
-      padding: 8px 24px; } }
-
-.itemsElement {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  margin: 0 auto;
-  overflow-x: scroll;
-  user-select: none;
-  will-change: transform; }
-  .itemsElement::-webkit-scrollbar {
-    background: transparent;
-    display: none;
-    width: 0px; }
-
-@media only screen and (min-width: 640px) {
-  .itemsElement {
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.08);
-    max-width: 640px;
-    border-radius: 999px; } }
