@@ -22,38 +22,44 @@ class SmoothScroll extends Component {
     return (
       <div className="smoothScrollContainer">
         <div className="itemContainer" onScroll={this.itemContainerOnScroll}>
-          <div className="items">
-            { this.imageCount.map(
-              key => <img src={circle} alt="circle" width="100%" key={key}/>
-            )}
-          </div>
-          <div className="items">
-            { this.imageCount.map(
-              key => <img src={hexagon} alt="hexagon" width="100%" key={key}/>
-            )}
-          </div>
-          <div className="items">
-            { this.imageCount.map(
-              key => <img src={square} alt="square" width="100%" key={key}/>
-            )}
-          </div>
-          <div className="items">
-            { this.imageCount.map(
-              key => <img src={triangle} alt="triangle" width="100%" key={key}/>
-            )}
+          <div className="itemsElement">
+            <div className="items">
+              { this.imageCount.map(
+                key => <img src={circle} alt="circle" width="100%" key={key}/>
+              )}
+            </div>
+            <div className="items">
+              { this.imageCount.map(
+                key => <img src={hexagon} alt="hexagon" width="100%" key={key}/>
+              )}
+            </div>
+            <div className="items">
+              { this.imageCount.map(
+                key => <img src={square} alt="square" width="100%" key={key}/>
+              )}
+            </div>
+            <div className="items">
+              { this.imageCount.map(
+                key => <img src={triangle} alt="triangle" width="100%" key={key}/>
+              )}
+            </div>
           </div>
         </div>
         <div className="categoryContainer">
-          <div className="category active">
+          <div
+          className="category active" onPointerDown={this.categoryOnPointerDown}>
             <img src={circle} alt="circle" width="100%"/>
           </div>
-          <div className="category">
+          <div
+          className="category" onPointerDown={this.categoryOnPointerDown}>
             <img src={hexagon} alt="hexagon" width="100%"/>
           </div>
-          <div className="category">
+          <div
+          className="category" onPointerDown={this.categoryOnPointerDown}>
             <img src={square} alt="square" width="100%"/>
           </div>
-          <div className="category">
+          <div
+          className="category" onPointerDown={this.categoryOnPointerDown}>
             <img src={triangle} alt="triangle" width="100%"/>
           </div>
         </div>
@@ -61,26 +67,77 @@ class SmoothScroll extends Component {
     );
   }
 
-  // FUNCTION
+  // FUNCTIONS
+  categoryOnPointerDown = (e) => {
+    this.categories.forEach((category,i) => {
+      const isActive = e.currentTarget.classList.contains('active');
+      if (category === e.currentTarget && !isActive) {
+        this.endIndex = i;
+        this.categoryActivateClass();
+        this.itemContainerScrollToActive();
+      }
+    });
+  };
+  getStartIndex = () => {
+    let indexUnknown = true;
+    if (indexUnknown) {
+      this.categories.forEach((category,i) => {
+        if (category.classList.contains('active') && indexUnknown) {
+          this.startIndex = i;
+          indexUnknown = !indexUnknown;
+        }
+      });
+    }
+  };
   getVariables = () => {
     // itemContainer
     this.itemContainer = document.querySelector('.itemContainer');
     this.items = this.itemContainer.querySelectorAll('.items');
     this.items.forEach(item => this.itemStartX.push(item.getBoundingClientRect().x));
     this.icScrollWidth = this.itemContainer.scrollWidth;
+    // itemsElement
+    this.itemsElement = document.querySelector('.itemsElement');
     // categoryContainer
     this.categoryContainer = document.querySelector('.categoryContainer');
     this.categories = this.categoryContainer.querySelectorAll('.category');
+    // Other
+    this.getStartIndex();
   };
   itemContainerOnScroll = (e) => {
     const detectionThreshold = e.currentTarget.scrollLeft + (window.innerWidth * 0.5);
     this.itemStartX.forEach((startValue, i) => {
       const endValue  = (this.itemStartX[i + 1]) ? this.itemStartX[i + 1] : this.icScrollWidth;
       if (detectionThreshold >= startValue && detectionThreshold < endValue) {
-        this.categories.forEach(category => category.classList.remove('active'));
-        this.categories[i].classList.add('active');
+        this.categoryActivateClass(i);
       }
     });
+  };
+  itemContainerScrollToActive= () => {
+    const scrollLeftStart = this.itemsElement.scrollLeft;
+    this.itemContainer.addEventListener('transitionend', this.itemContainerScrollToActiveEnd);
+    this.itemsElement.classList.add('willOverflow');
+    this.itemsElement.style = `transform: translateX(-${scrollLeftStart}px)`;
+    window.requestAnimationFrame(this.smoothScroll);
+  };
+  itemContainerScrollToActiveEnd = () => {
+    this.itemContainer.removeEventListener('transitionend', this.itemContainerScrollToActiveEnd);
+    this.itemsElement.classList.remove('willAnimate');
+    this.itemsElement.classList.remove('willOverflow');
+    this.itemsElement.style = null;
+    this.itemsElement.scrollLeft = Math.abs(this.transformValue);
+  };
+  categoryActivateClass = () => {
+    this.categories.forEach(category => category.classList.remove('active'));
+    this.categories[this.endIndex].classList.add('active');
+  };
+  smoothScroll = () => {
+    this.itemsElement.classList.add('willAnimate');
+    if (this.startIndex < this.endIndex) {
+      this.transformValue = this.itemStartX[this.endIndex] * -1;
+    } else {
+      this.transformValue = this.itemStartX[this.endIndex];
+    }
+    this.itemsElement.style = `transform: translateX(${this.transformValue}px)`;
   };
 }
 
