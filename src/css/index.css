@@ -420,7 +420,6 @@ h6 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 100vh;
   text-align: center;
   width: 100vw; }
 
@@ -428,14 +427,17 @@ h6 {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: 8px 16px; }
+  padding: 8px; }
   .categoryContainer .category {
-    margin: 0 16px;
+    margin: 0 12px;
     cursor: pointer;
     position: relative;
     line-height: 0; }
+    .categoryContainer .category.active img {
+      opacity: 1; }
   .categoryContainer .category img {
-    width: 40px; }
+    width: 48px;
+    opacity: 0.2; }
     @media (any-hover: hover) {
       .categoryContainer .category img:hover {
         transform: translateY(-4px); } }
@@ -445,7 +447,7 @@ h6 {
     content: '';
     display: block;
     height: 4px;
-    left: calc(-16px - 2px);
+    left: calc(-12px - 2px);
     position: absolute;
     top: calc(50% - 2px);
     width: 4px; }
