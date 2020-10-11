@@ -423,6 +423,13 @@ h6 {
   text-align: center;
   width: 100vw; }
 
+.willAnimate {
+  transition-duration: 0.6s !important;
+  pointer-events: none !important; }
+
+.willOverflow {
+  overflow-x: visible !important; }
+
 .categoryContainer {
   display: flex;
   flex-direction: row;
@@ -432,7 +439,8 @@ h6 {
     margin: 0 12px;
     cursor: pointer;
     position: relative;
-    line-height: 0; }
+    line-height: 0;
+    user-select: none; }
     .categoryContainer .category.active img {
       opacity: 1; }
   .categoryContainer .category img {
@@ -455,23 +463,6 @@ h6 {
 @media only screen and (min-width: 640px) {
   .categoryContainer {
     padding: 24px 16px; } }
-
-.itemContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  overflow: scroll;
-  margin: 0 auto; }
-  .itemContainer::-webkit-scrollbar {
-    background: transparent;
-    display: none;
-    width: 0px; }
-
-@media only screen and (min-width: 640px) {
-  .itemContainer {
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.08);
-    max-width: 640px;
-    border-radius: 999px; } }
 
 .itemContainer .items {
   display: flex;
@@ -505,3 +496,22 @@ h6 {
     padding: 8px 24px 8px 8px; }
     .itemContainer .items + .items {
       padding: 8px 24px; } }
+
+.itemsElement {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0 auto;
+  overflow-x: scroll;
+  user-select: none;
+  will-change: transform; }
+  .itemsElement::-webkit-scrollbar {
+    background: transparent;
+    display: none;
+    width: 0px; }
+
+@media only screen and (min-width: 640px) {
+  .itemsElement {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.08);
+    max-width: 640px;
+    border-radius: 999px; } }
