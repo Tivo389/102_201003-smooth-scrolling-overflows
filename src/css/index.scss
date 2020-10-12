@@ -15,9 +15,9 @@
 }
 
 .willAnimate {
-  // transition-duration: $durationLG !important;
-  transition-duration: 1s !important;
+  transition-duration: $durationLG !important;
   pointer-events: none !important;
+  transition-timing-function: ease-in-out;
 }
 
 
@@ -82,9 +82,10 @@
   will-change: transform;
 }
 @include w640 {
-  .itemsElement {
-    box-shadow: $boxShadowDefault;
+  .itemContainer {
+    box-shadow: $boxShadowInset;
     max-width: 640px;
+    margin: 0 auto;
     border-radius: 999px;
   }
 }
