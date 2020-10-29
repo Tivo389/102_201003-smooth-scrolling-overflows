@@ -3,6 +3,7 @@ import circle from '../images/circle.svg';
 import hexagon from '../images/hexagon.svg';
 import square from '../images/square.svg';
 import triangle from '../images/triangle.svg';
+import { displayPointerCoordinates, displaySwipeDirection } from './Helper';
 
 class SmoothScroll extends Component {
   // COMPONENT VARIABLES
@@ -12,6 +13,8 @@ class SmoothScroll extends Component {
   // LIFECYCLE METHODS
   componentDidMount() {
     this.getVariables();
+    displayPointerCoordinates();
+    displaySwipeDirection();
   }
   componentDidUpdate() {}
   componentWillUnmount() {}
