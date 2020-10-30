@@ -5,12 +5,17 @@ export const displayPointerCoordinates = () => {
   let pointerType;
   let activeStatus = false;
   // FUNCTIONS
-  const activate = () => {
+  const activateDPC = () => {
     if (window.PointerEvent) {
-      window.addEventListener('pointerdown', getCoordinates, true);
+      window.addEventListener('pointerdown', handleStartDPC, true);
+      window.addEventListener('pointerup', handleEndDPC, true);
+      window.addEventListener('pointercancel', handleEndDPC, true);
     } else {
-      window.addEventListener('touchstart', getCoordinates, true);
-      window.addEventListener('mousedown', getCoordinates, true);
+      window.addEventListener('touchstart', handleStartDPC, true);
+      window.addEventListener('touchend', handleEndDPC, true);
+      window.addEventListener('touchcancel', handleEndDPC, true);
+      window.addEventListener('mousedown', handleStartDPC, true);
+      window.addEventListener('mouseup', handleEndDPC, true);
     }
   };
   const displayCoordinates = () => {
@@ -33,7 +38,11 @@ export const displayPointerCoordinates = () => {
       activeStatus = !activeStatus;
     }, 1500);
   };
-  const getCoordinates = (e) => {
+  const handleEndDPC = () => {
+    document.body.style = '';
+  };
+  const handleStartDPC = (e) => {
+    document.body.style.overflow = 'hidden';
     if (activeStatus === false) {
       activeStatus = !activeStatus;
       pointerType = e.pointerType;
@@ -50,7 +59,7 @@ export const displayPointerCoordinates = () => {
     }
   };
   // METHOD
-  activate();
+  activateDPC();
 };
 
 
@@ -76,19 +85,16 @@ export const displaySwipeDirection = () => {
   let yEnd;
   let yStart;
   // FUNCTIONS
-  const activate = () => {
+  const activateDSD = () => {
     if (window.PointerEvent) {
-      window.addEventListener('pointerdown', handleStart, true);
-      window.addEventListener('pointermove', handleMove, true);
-      window.addEventListener('pointerup', handleEnd, true);
+      window.addEventListener('pointerdown', handleStartDSD, true);
+      window.addEventListener('pointerup', handleEndDSD, true);
     } else {
-      window.addEventListener('touchstart', handleStart, true);
-      window.addEventListener('touchmove', handleMove, true);
-      window.addEventListener('touchend', handleEnd, true);
-      window.addEventListener('touchcancel', handleEnd, true);
-      window.addEventListener('mousedown', handleStart, true);
-      window.addEventListener('mousemove', handleMove, true);
-      window.addEventListener('mouseup', handleEnd, true);
+      window.addEventListener('touchstart', handleStartDSD, true);
+      window.addEventListener('touchend', handleEndDSD, true);
+      window.addEventListener('touchcancel', handleEndDSD, true);
+      window.addEventListener('mousedown', handleStartDSD, true);
+      window.addEventListener('mouseup', handleEndDSD, true);
     }
   };
   const displayCoordinates = () => {
@@ -97,6 +103,8 @@ export const displaySwipeDirection = () => {
     swipeCoordinate.style.fontSize = '8px';
     swipeCoordinate.style.left = '0';
     swipeCoordinate.style.letterSpacing = '0.025em';
+    swipeCoordinate.style.maxHeight = window.innerHeight;
+    swipeCoordinate.style.maxWidth = '100vw';
     swipeCoordinate.style.padding = '8px';
     swipeCoordinate.style.pointerEvents = 'none';
     swipeCoordinate.style.position = 'absolute';
@@ -116,6 +124,8 @@ export const displaySwipeDirection = () => {
     compassContainer.style.height = '140px';
     compassContainer.style.justifyContent = 'center';
     compassContainer.style.left = `${xStart}px`;
+    compassContainer.style.maxHeight = window.innerHeight;
+    compassContainer.style.maxWidth = '100vw';
     compassContainer.style.pointerEvents = 'none';
     compassContainer.style.position = 'absolute';
     compassContainer.style.right = '0';
@@ -127,12 +137,16 @@ export const displaySwipeDirection = () => {
     compassContainer.innerHTML = arrowSVG;
     document.body.insertAdjacentElement('afterbegin', compassContainer);
   };
-  const handleEnd = (e) => {
+  const handleEndDSD = (e) => {
     pointerIsDown = !pointerIsDown;
     swipeCoordinate.remove();
     compassContainer.remove();
+    document.body.style = '';
+    window.removeEventListener('pointermove', handleMoveDSD, true);
+    window.removeEventListener('touchmove', handleMoveDSD, true);
+    window.removeEventListener('mousemove', handleMoveDSD, true);
   };
-  const handleMove = (e) => {
+  const handleMoveDSD = (e) => {
     if (pointerIsDown) {
       if (e.touches && e.touches.length > 1) {
         return;
@@ -150,7 +164,11 @@ export const displaySwipeDirection = () => {
       displaySwipeCompass();
     }
   };
-  const handleStart = (e) => {
+  const handleStartDSD = (e) => {
+    window.addEventListener('pointermove', handleMoveDSD, true);
+    window.addEventListener('touchmove', handleMoveDSD, true);
+    window.addEventListener('mousemove', handleMoveDSD, true);
+    document.body.style.overflow = 'hidden';
     pointerIsDown = !pointerIsDown;
     if (e.touches && e.touches.length > 1) {
       return;
@@ -270,7 +288,7 @@ export const displaySwipeDirection = () => {
     };
   };
   // METHOD
-  activate();
+  activateDSD();
 };
 
 
