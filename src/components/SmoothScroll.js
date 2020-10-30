@@ -13,7 +13,7 @@ class SmoothScroll extends Component {
   // LIFECYCLE METHODS
   componentDidMount() {
     this.getVariables();
-    displayPointerCoordinates();
+    // displayPointerCoordinates();
     displaySwipeDirection();
   }
   componentDidUpdate() {}
